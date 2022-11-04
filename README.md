@@ -18,7 +18,6 @@ Between the square brackets, insert a list of items in this format:
 ```
     {id: 'phoenix', name: 'Phoenix Wright', image: 'phoenixwright.png'},
     {id: 'edgeworth', name: 'Miles Edgeworth', image: 'edgeworth.png'},
-    {id: 'maya', name: 'Maya Fey', image: 'mayafey.png'}
 ```
 
 Technically, only the `id` parameter is required; if the `image` is missing, the name will be shown instead, and if the `name` is missing, the ID will be used instead. You can have as many items as you want, but ensure there is a comma after each item except the last one. If specified, the `image` should be a path relative to the `picker.html` page, or else an absolute URL starting with http:// or https://. Make sure all the values are surrounded by either single (') or double (") quotes; if a value contains an apostrophe or quote, either escape it by writing it as `\'` or `\"` (e.g. `'Farfetch\'d'`) or use the other kind of quote, assuming the value doesn't contain that as well (e.g. `"Farfetch'd"`).

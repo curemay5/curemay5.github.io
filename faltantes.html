@@ -155,7 +155,6 @@ button.disabled:hover {
         line-height:50px;
         height:50px;
         width:50px;
-
     }
 }
 
@@ -181,7 +180,6 @@ button.disabled:hover {
 
 #evaluating, #buttons {
     text-align:center;
-
     margin:auto;
 }
 
@@ -222,7 +220,7 @@ button.disabled:hover {
 </div>
 
 <div id="secondary">
-<h2>Tus chachifavos: </h2>
+<h2>Tus favos:</h2>
 
 <ol id="favorites" class="item-list">
 </ol>
@@ -234,3 +232,56 @@ button.disabled:hover {
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
 <script>
 'use strict';
+
+var items = [
+    // Define your items here
+    {id: 'aurelion_sol', name: 'Aurelion Sol', image: 'iconos/aurelion_sol.jpg'},
+    {id: 'darius', name: 'Darius', image: 'iconos/darius.jpg'},
+    {id: 'drmundo', name: 'Dr. Mundo', image: 'iconos/drmundo.jpg'},
+    {id: 'draven', name: 'Draven', image: 'iconos/draven.jpg'},
+   {id: 'renekton', name: 'Renekton', image: 'iconos/renekton.jpg'},
+    {id: 'singed', name: 'Singed', image: 'iconos/singed.jpg'},
+    {id: 'urgot', name: 'Urgot', image: 'iconos/urgot.jpg'},
+  {id: 'volibear', name: 'Volibear', image: 'iconos/volibear.jpg'},
+   {id: 'warwick', name: 'Warwick', image: 'iconos/warwick.jpg'}
+];
+
+var myPicker = new picker.Picker({
+    items: items,
+    localStorageKey: 'wr-rest-picker-state'
+});
+
+var pickerUI = new PickerUI(myPicker, {
+    elements: {
+        pick: "#pick",
+        pass: "#pass",
+        undo: "#undo",
+        redo: "#redo",
+        evaluating: "#evaluating",
+        favorites: "#favorites"
+    }
+});
+
+pickerUI.initialize();
+
+/* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
+var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
+    draggable: '.item',
+    animation: 100,
+    onStart: function() {
+        pickerUI.elem.favorites.addClass("sorting");
+    },
+    onEnd: function() {
+        pickerUI.elem.favorites.removeClass("sorting");
+    },
+    onUpdate: function() {
+        myPicker.setFavorites(pickerUI.elem.favorites.children().map(function() {
+            return pickerUI.getItem(this);
+        }).get());
+        pickerUI.update(true);
+    }
+});
+/* End sortable favorites */
+</script>
+</body>
+</html>
